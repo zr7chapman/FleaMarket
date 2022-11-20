@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{items.index.title} ]]</h1>
+    <a class="btn btn-primary" th:href="@{/items/create}">[[ #{items.index.linktoCreate} ]]</a>
+    
+    <ul th:each="item : ${items}" th:object="${item}" class="list-unstyled">
+        <li>
+            <a th:href="@{/items/detail/{id} (id=*{id})}">
+                <img class="img-thumbnail item_image" th:src="@{/images/{image} (image=*{image})}">
+            </a>
+            <span>[[ *{description} ]]</span>
+            <div>[[ #{itemForm.name} ]]: [[ *{name} ]] / [[ #{itemForm.price} ]]: [[ #{items.price(*{#numbers.formatInteger(price, 3, 'COMMA')})} ]]</div>
+            <div>
+            	[[ #{itemForm.category_id }]]: [[ *{category.name} ]] ([[ *{#temporals.format(createdAt, 'yyyy/MM/dd HH:mm:ss')} ]])
+            	<form method="post" th:action="@{/items/toggleLike/{id} (id=*{id})}">
+            		<input type="submit" class="btn" th:value="${item.isFavorite(#authentication.principal.user.id) ? '★' : '☆'}">
+            	</form>
+            </div>
+            <th:block th:if="${item.isSoldout()}">
+            	<p style="color: red;">[[ #{items.soldout} ]]</p>
+            </th:block>
+            <th:block th:unless="${item.isSoldout()}">
+            	<p>[[ #{items.exhibiting} ]]</p>
+            </th:block>
+        </li>
+    </ul>
+</div>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{items.create.title} ]]</h1>
+    <form th:action="@{/items/create}" enctype="multipart/form-data" th:object="${itemForm}" method="post">
+        <div class="form-group">
+            <label for="name">[[ #{itemForm.name} ]]: </label>
+            <input type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid" autofocus>      
+        	<div class="invalid-feedback" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="description">[[ #{itemForm.description} ]]: </label>
+            <textarea th:field="*{description}" rows=20 class="form-control" th:errorclass="is-invalid"></textarea>
+            <div class="invalid-feedback" th:errors="*{description}"></div>
+        </div>
+        <div class="form-group">
+            <label for="price">[[ #{itemForm.price} ]]: </label>
+            <input type="number" th:field="*{price}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{price}"></div>
+        </div>
+       	<div class="form-group">
+       		<label for="category_id">[[ #{itemForm.category_id} ]]: </label>   
+       		<select th:field="*{category_id}" class="form-control" th:errorclass="is-invalid">
+       			<option th:each="category : ${categories}" th:value="${category.id}">[[ ${category.name}]]</option>
+       		</select>
+       		<div class="invalid-feedback" th:errors="*{category_id}"></div>
+       	</div>
+        <div class="form-group">
+            <label for="image">[[ #{itemForm.image} ]]: </label>
+            <input type="file" th:field="*{image}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{image}"></div>
+        </div>
+ 
+        <input type="submit" th:value="#{items.create.button}" class="btn btn-primary w-100">
+    </form>
+</div>
+</html>

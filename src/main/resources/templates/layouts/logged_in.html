@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<title th:text="${title} ?: _"></title>
+</head>
+
+<body>
+	<div id="header" th:replace="~{layouts/header :: loggedInHeader}"></div>
+
+	<main class="container justify-content-center">
+		<th:block th:if="${successMessage != null}">		
+			<div class="alert alert-success">[[ ${successMessage} ]]</div>
+		</th:block>
+		<div id="main" th:include="__${main}__"></div>
+	</main>
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{items.editimage.title} ]]</h1>
+    <h2>[[ #{items.editimage.subtitle} ]]</h2>
+    <img class="item_image" th:src="@{/images/{image} (image=${item.image})}">
+    <form th:action="@{/items/editimage/{id}(id=${item.id})}" enctype="multipart/form-data" th:object="${itemForm}" method="post">
+        <div class="form-group">
+            <label for="image">[[ #{itemForm.image} ]]: </label>
+            <input type="file" th:field="*{image}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{image}"></div>
+        </div>
+ 
+        <input type="submit" th:value="#{items.editimage.button}" class="btn btn-primary w-100">
+    </form>
+</div>
+</html>

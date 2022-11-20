@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{users.signup.title} ]]</h1>
+ 
+    <form th:action="@{/users/signup}" th:object="${userForm}" method="post" class="form-signup">
+        <div class="form-group">
+            <label for="name">[[ #{userForm.name} ]]: </label>
+            <input type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid" autofocus>
+            <div class="invalid-feedback" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">[[ #{userForm.email} ]]: </label>
+            <input type="email" th:field="*{email}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{email}"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">[[ #{userForm.password} ]]: </label>
+           <input type="password" th:field="*{password}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{password}"></div>
+        </div>
+        <div class="form-group">
+            <label for="password_confirmation">[[ #{userForm.password_confirmation} ]]: </label>
+           <input type="password" th:field="*{password_confirmation}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{password_confirmation}"></div>
+        </div>
+        <input type="submit" th:value="#{users.signup.button}" class="btn btn-primary w-100 mt-3">
+    </form>
+</div>
+</html>

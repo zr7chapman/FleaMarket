@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{items.finish.title} ]]</h1>
+    <dl th:object="${item}">
+        <dt>[[ #{itemForm.name} ]]</dt>
+        <dd>[[ *{name} ]]</dd>
+        <dt>[[ #{itemForm.image} ]]</dt>
+        <dd><img class="item_image" th:src="@{/images/{image} (image=*{image})}"></dd>
+		<dt>[[ #{itemForm.category_id} ]]</dt>
+        <dd>[[ *{category.name} ]]</dd>
+		<dt>[[ #{itemForm.price} ]]</dt>
+        <dd>[[ #{items.price(*{#numbers.formatInteger(price, 3, 'COMMA')})} ]]</dd>
+		<dt>[[ #{itemForm.description} ]]</dt>
+        <dd>[[ *{description} ]]</dd>
+    </dl>
+    <a th:href="@{/}">[[ #{items.finish.linktoTop} ]]</a>
+</div>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{users.editimage.title} ]]</h1>
+    <h2>[[ #{users.editimage.subtitle} ]]</h2>
+    <th:block th:if="${user.image == null || user.image.isEmpty()}">
+    	<img class="profile_image" th:src="@{/resources/no_image.png}">
+    </th:block>
+    <th:block th:unless="${user.image == null || user.image.isEmpty()}">
+    	<img class="profile_image" th:src="@{/images/{image} (image=${user.image})}">
+    </th:block>    
+    <form th:action="@{/users/editimage/{id}(id=${user.id})}" enctype="multipart/form-data" th:object="${userForm}" method="post">
+        <div class="form-group">
+            <label for="image">[[ #{userForm.image} ]]: </label>
+            <input type="file" th:field="*{image}" class="form-control" th:errorclass="is-invalid">
+            <div class="invalid-feedback" th:errors="*{image}"></div>
+        </div>
+ 
+        <input type="submit" th:value="#{users.editimage.button}" class="btn btn-primary w-100">
+    </form>
+</div>
+</html>

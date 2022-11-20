@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="loggedInHeader">
+	<header>
+		<ul class="header_nav container-fluid nav align-items-center">
+			<li class="nav-item"><a th:href="@{/}" class="nav-link">[[ #{header.logo} ]]</a></li>
+			<li class="nav-item">[[ #{header.username(${#authentication.principal.user.name})} ]]</li>
+			<li class="nav-item"><a th:href="@{/users/detail/{id}(id=${#authentication.principal.user.id})}" class="nav-link">[[ #{header.profile}]]</a></li>
+			<li class="nav-item"><a th:href="@{/items/favorites}" class="nav-link">[[ #{header.favorites}]]</a></li>
+			<li class="nav-item"><a th:href="@{/items/exhibitions/{id} (id=${#authentication.principal.user.id})}" class="nav-link">[[ #{header.exhibitions} ]]</a></li>
+			<li class="nav-item">
+				<form th:action="@{/logout}" method="post">
+					<button type="submit" class="btn btn-secondary">[[ #{header.logout} ]]</button>
+				</form>
+			</li>
+		</ul>
+	</header>
+</div>
+
+<div th:fragment="notLoggedInHeader">
+	<header>
+		<ul class="header_nav container-fluid nav">
+			<li class="nav-item"><a href="/users/signup" class="nav-link">[[ #{header.signup} ]]</a></li>
+			<li class="nav-item"><a href="/users/login" class="nav-link">[[ #{header.login} ]]</a></li>
+		</ul>
+	</header>
+</div>
+
+</html>

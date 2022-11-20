@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{users.detail.title} ]]</h1>
+    <dl th:object="${user}">
+        <dt>[[ #{userForm.name} ]]</dt>
+        <dd>[[ *{name} ]]</dd>
+        <dt>[[ #{userForm.image} ]]</dt>
+        <dd>
+        	<th:block th:if="${user.image == null || user.image.isEmpty()}">
+        		[[ #{users.detail.noImage} ]]
+        	</th:block>
+        	<th:block th:unless="${user.image == null || user.image.isEmpty()}">
+        		<img class="profile_image" th:src="@{/images/{image} (image=*{image})}">
+        	</th:block>
+			<th:block th:if="${#authentication.principal.user.id == user.id}">
+				<br><a th:href="@{/users/editimage/{id} (id=${id})}">[[ #{users.detail.linktoEditImage} ]]</a>
+			</th:block>
+        </dd>
+		<dt>[[ #{userForm.profile} ]]</dt>
+		<dd>
+        	<th:block th:if="${user.profile == null || user.profile.isEmpty()}">
+        		[[ #{users.detail.noProfile} ]]
+        	</th:block>
+        	<th:block th:unless="${user.profile == null || user.profile.isEmpty()}">
+        		[[ *{profile} ]]
+        	</th:block>
+			<th:block th:if="${#authentication.principal.user.id == user.id}">
+				<br><a th:href="@{/users/edit/{id} (id=${id})}">[[ #{users.detail.linktoEdit} ]]</a>
+			</th:block>
+        </dd>
+        <dt>[[ #{users.detail.numberOfExhibits} ]]</dt>
+        <dd>
+        	<th:block th:if="${user.items.size() > 0}">
+        		[[ #{users.detail.itemUnit(${user.items.size()})} ]]
+        	</th:block>
+        	<th:block th:unless="${user.items.size() > 0}">
+        		[[ #{users.detail.noExhibits} ]]
+        	</th:block>
+        </dd>
+        <dt>[[ #{users.detail.purchaseHistory} ]]</dt>
+        <dd>
+        	<th:block th:if="${orderedItems.size() > 0}">
+	        	<ul th:each="item : ${orderedItems}" th:object="${item}" class="list-unstyled">
+	        		<li>
+	        			<a th:href="@{/items/detail/{id} (id=*{id})}">[[ *{name}]]</a>: [[ #{users.detail.price(*{price})} ]] / [[ #{users.detail.seller(*{user.name})} ]]
+	        		</li>
+	        	</ul>
+        	</th:block>
+        	<th:block th:unless="${orderedItems.size() > 0}">
+        		[[ #{users.detail.noPurchased} ]]
+        	</th:block>
+        </dd>
+    </dl>
+</div>
+</html>

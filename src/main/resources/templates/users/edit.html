@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="main">
+    <h1>[[ #{users.edit.title} ]]</h1>
+    <form th:action="@{/users/edit/{id}(id=${user.id})}" th:object="${userForm}" method="post">
+        <div class="form-group">
+            <label for="name">[[ #{userForm.name} ]]: </label>
+            <input type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid" autofocus>      
+        	<div class="invalid-feedback" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="profile">[[ #{userForm.profile} ]]: </label>
+            <textarea th:field="*{profile}" rows=20 class="form-control" th:errorclass="is-invalid"></textarea>
+            <div class="invalid-feedback" th:errors="*{profile}"></div>
+        </div>
+ 
+        <input type="submit" th:value="#{users.edit.button}" class="btn btn-primary w-100">
+    </form>
+</div>
+</html>
